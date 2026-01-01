@@ -12,6 +12,9 @@ const tailwindColors = Object.fromEntries(
   ]),
 );
 
+// Add tint as an alias for primary
+tailwindColors.tint = tailwindColors.primary;
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
@@ -22,6 +25,9 @@ module.exports = {
   theme: {
     extend: {
       colors: tailwindColors,
+      spacing: {
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+      },
     },
   },
   plugins: [
