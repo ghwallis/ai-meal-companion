@@ -9,6 +9,7 @@ import { SkeletonStats, SkeletonCard } from "@/components/ui/skeleton";
 import { MealHistoryEmptyState } from "@/components/ui/empty-state";
 import { HapticTriggers } from "@/lib/haptic";
 import { FadeInScreen, StaggeredListItem } from "@/lib/screen-transitions";
+import { AnimatedRefreshControl } from "@/components/animated-refresh-control";
 import { trpc } from "@/lib/trpc";
 
 /**
@@ -78,6 +79,7 @@ export default function MealHistoryScreen() {
   }
 
   return (
+    <FadeInScreen>
     <ScreenContainer className="bg-background">
       <BackHeader 
         title="Meal History"
@@ -87,10 +89,10 @@ export default function MealHistoryScreen() {
         contentContainerStyle={{ flexGrow: 1 }} 
         className="flex-1"
         refreshControl={
-          <RefreshControl 
+          <AnimatedRefreshControl 
             refreshing={isRefetching} 
             onRefresh={refetch}
-            tintColor={colors.primary}
+            colors={{ primary: colors.primary, background: colors.background }}
           />
         }
       >
@@ -301,5 +303,7 @@ export default function MealHistoryScreen() {
         </View>
       </ScrollView>
     </ScreenContainer>
+    </FadeInScreen>
   );
 }
+

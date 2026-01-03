@@ -8,6 +8,7 @@ import { SkeletonCard, SkeletonListItem } from "@/components/ui/skeleton";
 import { SavedRecipesEmptyState } from "@/components/ui/empty-state";
 import { HapticTriggers } from "@/lib/haptic";
 import { FadeInScreen, StaggeredListItem } from "@/lib/screen-transitions";
+import { AnimatedRefreshControl } from "@/components/animated-refresh-control";
 import { trpc } from "@/lib/trpc";
 
 /**
@@ -69,10 +70,10 @@ export default function SavedRecipesScreen() {
         contentContainerStyle={{ flexGrow: 1 }} 
         className="flex-1"
         refreshControl={
-          <RefreshControl 
+          <AnimatedRefreshControl 
             refreshing={isRefetching} 
             onRefresh={refetch}
-            tintColor={colors.primary}
+            colors={{ primary: colors.primary, background: colors.background }}
           />
         }
       >
