@@ -8,6 +8,7 @@ import { useColors } from "@/hooks/use-colors";
 import { SkeletonStats, SkeletonCard } from "@/components/ui/skeleton";
 import { MealHistoryEmptyState } from "@/components/ui/empty-state";
 import { HapticTriggers } from "@/lib/haptic";
+import { FadeInScreen, StaggeredListItem } from "@/lib/screen-transitions";
 import { trpc } from "@/lib/trpc";
 
 /**
@@ -163,13 +164,13 @@ export default function MealHistoryScreen() {
             />
           ) : (
             <View className="gap-4">
-              {filteredMeals.map((meal) => {
+              {filteredMeals.map((meal, index) => {
                 const nutrition = meal.nutrition as any;
                 const ingredients = meal.ingredients as any[];
                 
                 return (
+                  <StaggeredListItem key={meal.id} index={index} delay={50}>
                   <View
-                    key={meal.id}
                     style={{ backgroundColor: colors.surface, borderColor: colors.border }}
                     className="rounded-2xl p-4 border"
                   >
@@ -292,6 +293,7 @@ export default function MealHistoryScreen() {
                       </View>
                     )}
                   </View>
+                  </StaggeredListItem>
                 );
               })}
             </View>

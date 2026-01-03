@@ -6,6 +6,7 @@ import { useColors } from "@/hooks/use-colors";
 import { BackHeader } from "@/components/ui/back-header";
 import { Skeleton, SkeletonText, SkeletonStats } from "@/components/ui/skeleton";
 import { HapticTriggers } from "@/lib/haptic";
+import { FadeInScreen } from "@/lib/screen-transitions";
 import { trpc } from "@/lib/trpc";
 
 interface RecipeStep {
@@ -135,18 +136,19 @@ export default function RecipeDetailScreen() {
 
   if (isLoading) {
     return (
-      <ScreenContainer className="bg-background">
-        <BackHeader title="Recipe Details" />
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="flex-1">
-          <View className="px-6 py-8 gap-6">
-            {/* Image Skeleton */}
-            <Skeleton width={80} height={80} borderRadius={8} style={{ marginHorizontal: "auto" }} />
-            
-            {/* Title and Description Skeleton */}
-            <View className="gap-2">
-              <Skeleton width="80%" height={28} borderRadius={6} />
-              <Skeleton width="100%" height={14} borderRadius={4} />
-              <Skeleton width="90%" height={14} borderRadius={4} />
+      <FadeInScreen>
+        <ScreenContainer className="bg-background">
+          <BackHeader title="Recipe Details" />
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="flex-1">
+            <View className="px-6 py-8 gap-6">
+              {/* Image Skeleton */}
+              <Skeleton width={80} height={80} borderRadius={8} style={{ marginHorizontal: "auto" }} />
+              
+              {/* Title and Description Skeleton */}
+              <View className="gap-2">
+                <Skeleton width="80%" height={28} borderRadius={6} />
+                <Skeleton width="100%" height={14} borderRadius={4} />
+                <Skeleton width="90%" height={14} borderRadius={4} />
             </View>
 
             {/* Quick Stats Skeleton */}
@@ -184,6 +186,7 @@ export default function RecipeDetailScreen() {
           </View>
         </ScrollView>
       </ScreenContainer>
+      </FadeInScreen>
     );
   }
 
@@ -195,6 +198,7 @@ export default function RecipeDetailScreen() {
   };
 
   return (
+    <FadeInScreen>
     <ScreenContainer className="bg-background">
       <BackHeader
         title="Recipe Details"
@@ -418,6 +422,7 @@ export default function RecipeDetailScreen() {
           </View>
         </View>
       </ScrollView>
-    </ScreenContainer>
+    </FadeInScreen>
   );
 }
+

@@ -7,6 +7,7 @@ import { useColors } from "@/hooks/use-colors";
 import { SkeletonCard, SkeletonListItem } from "@/components/ui/skeleton";
 import { SavedRecipesEmptyState } from "@/components/ui/empty-state";
 import { HapticTriggers } from "@/lib/haptic";
+import { FadeInScreen, StaggeredListItem } from "@/lib/screen-transitions";
 import { trpc } from "@/lib/trpc";
 
 /**
@@ -137,7 +138,7 @@ export default function SavedRecipesScreen() {
             />
           ) : (
             <View className="gap-4">
-              {filteredRecipes.map((item) => {
+              {filteredRecipes.map((item, index) => {
                 const recipe = item.recipe;
                 if (!recipe) return null;
 
@@ -145,8 +146,8 @@ export default function SavedRecipesScreen() {
                 const savedInfo = item.savedRecipe;
 
                 return (
+                  <StaggeredListItem key={savedInfo.id} index={index} delay={50}>
                   <Pressable
-                    key={savedInfo.id}
                     onPress={() => handleRecipePress(recipe)}
                     style={({ pressed }) => ({
                       backgroundColor: colors.surface,
@@ -271,6 +272,7 @@ export default function SavedRecipesScreen() {
                       </View>
                     )}
                   </Pressable>
+                  </StaggeredListItem>
                 );
               })}
             </View>
